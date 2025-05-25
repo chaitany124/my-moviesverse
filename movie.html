@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Movie Details</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <h1>My Moviesverse</h1>
+    <nav>
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="#" class="nav-link active">About</a>
+    </nav>
+  </header>
+
+  <main id="movie-details">
+    <!-- Movie details will be inserted here by JS -->
+  </main>
+
+  <script src="movies.js"></script>
+  <script>
+    // Get movie id from URL
+    const params = new URLSearchParams(window.location.search);
+    const movieId = params.get('id');
+    const movie = movies.find(m => m.id === movieId);
+
+    const details = document.getElementById('movie-details');
+    if (!movie) {
+      details.innerHTML = '<p>Movie not found.</p>';
+    } else {
+      details.innerHTML = `
+        <h2>${movie.title} (${movie.year})</h2>
+        <img src="${movie.poster}" alt="${movie.title}" class="detail-poster"/>
+        <p>${movie.synopsis}</p>
+        <h3>Trailer</h3>
+        <iframe width="560" height="315" src="${movie.trailer}" frameborder="0" allowfullscreen></iframe>
+      `;
+    }
+  </script>
+</body>
+</html>
